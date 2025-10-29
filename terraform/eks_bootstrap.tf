@@ -34,6 +34,11 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   values = [
-    file("${path.module}/helm/argocd.values.yaml")
+    templatefile(
+      "${path.module}/helm/argocd.values.yaml.tftpl",
+      {
+        "environment" = var.env
+      }
+    )
   ]
 }
