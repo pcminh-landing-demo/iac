@@ -1,3 +1,15 @@
+
+variable "param__post_eks_apply" {
+  # Following - https://stackoverflow.com/questions/74861532/targeting-all-resources-exept-one-in-terraformthe-opposite-of-target-paramet
+
+  # Set to TRUE if run phase 2 after EKS is created
+
+  type = bool
+  default = false
+}
+
+######### 
+
 variable "env" {
   type = string
 }

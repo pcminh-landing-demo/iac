@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app-${environment}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/pcminh-landing-demo/gitops-artifacts
+    targetRevision: HEAD
+    path: argocd/${environment}
+  destination:
+    server: https://kubernetes.default.svc
