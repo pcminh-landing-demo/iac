@@ -55,6 +55,22 @@ resource "helm_release" "argocd" {
   ]
 }
 
+resource "kubernetes_manifest" "argocd_repository" {
+  count = var.param__post_eks_apply ? 1 : 0
+
+  manifest = yamldecode(
+    templatefile(
+      "${path.module}/helm/argocd-repo-secret.yaml.tftpl",
+      {
+        "gitops_ssh_private_key_indent_4" = indent(4, var.param__gitops_ssh_private_key)
+      }
+    )
+  )
+
+  # Ensure execution order
+  depends_on = [ helm_release.argocd ]
+}
+
 resource "kubernetes_manifest" "argocd_root_application" {
 
   count = var.param__post_eks_apply ? 1 : 0
@@ -73,6 +89,6 @@ resource "kubernetes_manifest" "argocd_root_application" {
   )
 
   # Ensure execution order
-  depends_on = [ helm_release.argocd ]
+  depends_on = [ kubernetes_manifest.argocd_repository ]
 }
 

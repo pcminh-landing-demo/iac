@@ -8,7 +8,19 @@ variable "param__post_eks_apply" {
   default = false
 }
 
+variable "param__gitops_ssh_private_key" {
+  type = string
+}
+
 ######### 
+
+variable "gitops_repo_url" {
+  type = string
+}
+
+variable "gitops_repo_path" {
+  type = string
+}
 
 variable "env" {
   type = string
