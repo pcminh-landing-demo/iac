@@ -65,7 +65,7 @@ resource "kubernetes_manifest" "argocd_root_application" {
 
   manifest = yamldecode(
     templatefile(
-      "${path.module}/helm/root-app.yaml.tftpl",
+      "${path.module}/helm/argocd-root-app.yaml.tftpl",
       {
         "environment" = var.env
       }
