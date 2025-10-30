@@ -25,3 +25,9 @@ module "eks" {
     Terraform = true
   }
 }
+
+data "aws_eks_cluster_auth" "cluster_auth" {
+  # This is to solve the "Error getting credentials"
+  # See - https://discuss.hashicorp.com/t/solution-error-getting-credentials/53517
+  name = module.eks.cluster_name
+}
